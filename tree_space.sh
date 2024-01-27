@@ -82,7 +82,7 @@ print_tree() {
     local last_rl=$recursion_level
     ((recursion_level++))
 
-    for item in $(ls -1d "$path"/*/ "$path"/.* 2>/dev/null); do
+    for item in $(ls -1d "$path"/* "$path"/.* 2>/dev/null | grep -v -e '/\.$' -e '/\.\.$'); do
         if [ -d "$item" ]; then            
             print_tree "$(du -sh "$item" 2>/dev/null | cut -f1)" "$item" "${indent}│    " "$recursion_level"
         fi
